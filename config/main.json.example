@@ -1,0 +1,14 @@
+{
+  "host": "127.0.0.1",
+  "port": 9000,
+  "dburl": "mongodb://localhost/image-api",
+  "redisurl":"",
+  "redis_database":3,
+  "provider": {
+    "auth": {
+      "use": true,
+      "classpath": "./provider/SimpleAuthProvider.js",
+      "token": "token to use"
+    }
+  }
+}
