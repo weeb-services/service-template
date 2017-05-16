@@ -1,17 +1,19 @@
 /**
  * Created by Julian on 02.05.2017.
  */
-const express = require('express');
-const bodyParser = require('body-parser');
-const loader = require('docker-config-loader');
 const winston = require('winston');
-const cors = require('cors');
-let genericRouter = require('./routes/generic.router');
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, {
     'timestamp': true,
     'colorize': true
 });
+const express = require('express');
+const bodyParser = require('body-parser');
+const loader = require('docker-config-loader');
+const cors = require('cors');
+const {promisify} = require('tsubaki');
+let genericRouter = require('./routes/generic.router');
+let levelRouter = require('./routes/level.router');
 let config;
 try {
     config = loader({secretName: 'secret_name', localPath: './config/main.json'});
@@ -31,9 +33,19 @@ mongoose.connect(config.dburl, (err) => {
         process.exit(1);
     }
 });
+let redis = require('redis');
+promisify(redis.RedisClient.prototype);
+promisify(redis.Multi.prototype);
+let redisClient = redis.createClient();
+redisClient.select(config.redis_database);
+redisClient.on('error', (err) => {
+    winston.error(err);
+});
 let app = express();
 let AuthProvider = config.provider.auth.use ? require(config.provider.auth.classpath) : undefined;
 let ap = config.provider.auth.use ? new AuthProvider(config.provider.auth) : undefined;
+let LevelProvider = require('./provider/LevelProvider');
+let lp = new LevelProvider(config.provider.level, redisClient);
 app.use((req, res, next) => {
     req.provider = {};
     if (ap !== undefined) {
@@ -48,6 +60,7 @@ app.use((req, res, next) => {
             }
         };
     }
+    req.provider.level = lp;
     req.config = config;
     next();
 });
