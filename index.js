@@ -11,7 +11,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const loader = require('docker-config-loader');
 const cors = require('cors');
-const {promisify} = require('tsubaki');
+const {promisifyAll} = require('tsubaki');
 let genericRouter = require('./routes/generic.router');
 let levelRouter = require('./routes/level.router');
 let config;
@@ -34,8 +34,8 @@ mongoose.connect(config.dburl, (err) => {
     }
 });
 let redis = require('redis');
-promisify(redis.RedisClient.prototype);
-promisify(redis.Multi.prototype);
+promisifyAll(redis.RedisClient.prototype);
+promisifyAll(redis.Multi.prototype);
 let redisClient = redis.createClient();
 redisClient.select(config.redis_database);
 redisClient.on('error', (err) => {
@@ -45,7 +45,9 @@ let app = express();
 let AuthProvider = config.provider.auth.use ? require(config.provider.auth.classpath) : undefined;
 let ap = config.provider.auth.use ? new AuthProvider(config.provider.auth) : undefined;
 let LevelProvider = require('./provider/LevelProvider');
-let lp = new LevelProvider(config.provider.level, redisClient);
+let RedisCache = require('./structures/RedisCache');
+let rc = new RedisCache(redisClient);
+let lp = new LevelProvider(config.provider.level, rc);
 app.use((req, res, next) => {
     req.provider = {};
     if (ap !== undefined) {
@@ -67,6 +69,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-app.use(genericRouter);
+app.use(genericRouter, levelRouter);
 app.listen(config.port, config.host);
 winston.info(`Server started ${config.host}:${config.port}`);
