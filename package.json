@@ -4,12 +4,12 @@
   "description": "A simple image api with pluggable backends",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.16.1",
-    "body-parser": "^1.17.1",
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
     "cors": "^2.8.3",
     "docker-config-loader": "^1.0.0",
-    "express": "^4.15.2",
-    "mongoose": "^4.9.7",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.4",
     "redis": "^2.7.1",
     "tsubaki": "^1.1.0",
     "winston": "^2.3.1"

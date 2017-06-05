@@ -1,11 +1,8 @@
 let mongoose = require('mongoose');
 let levelSchema = mongoose.Schema({
     userId: String,
-    guildId:String,
     xp: Number,
-    level: Number,
-    accountId: String,
-    b1nzy: Date
+    accountId: String
 });
-let levelModel = mongoose.model('Levels', levelSchema);
+let levelModel = mongoose.model('Globallevels', levelSchema);
 module.exports = levelModel;
