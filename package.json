@@ -1,17 +1,13 @@
 {
-  "name": "rem-level-api",
+  "name": "weeb-service-base",
   "version": "0.1.0",
-  "description": "A simple image api with pluggable backends",
-  "main": "index.js",
+  "description": "The base for all of our services",
+  "main": "src/index.js",
   "dependencies": {
-    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
-    "docker-config-loader": "^1.0.0",
     "express": "^4.15.3",
     "mongoose": "^4.10.4",
-    "redis": "^2.7.1",
-    "tsubaki": "^1.1.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {},
@@ -19,5 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Wolke <wolke@ram.moe>",
+  "contributors": [
+    "TheAkio <me@theak.io>"
+  ],
   "license": "MIT"
 }
