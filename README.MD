@@ -2,7 +2,7 @@
 # weeb-service-base
 A cute and awesome foundation for your next api
 
-##How to use it:
+## How to use it:
 
 1. clone this repo
 2. write your service
@@ -10,7 +10,7 @@ A cute and awesome foundation for your next api
 4. change the origin to the new repo
 5. push push
 
-##How to develop with it
+## How to develop with it
 
 - when adding a new middleware extend the base.middleware.js,
  to add your middleware to the app itself,
