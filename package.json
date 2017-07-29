@@ -1,13 +1,14 @@
 {
   "name": "weeb-service-base",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The base for all of our services",
   "main": "src/index.js",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "cors": "^2.8.3",
+    "cors": "^2.8.4",
     "express": "^4.15.3",
-    "mongoose": "^4.10.4",
+    "mongoose": "^4.11.4",
+    "wapi-core": "git+https://github.com/weeb-services/wapi-core.git",
     "winston": "^2.3.1"
   },
   "devDependencies": {},

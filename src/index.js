@@ -7,8 +7,12 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-const GenericRouter = require('./routers/generic.router');
-const WildcardRouter = require('./routers/wildcard.router');
+const packageJson = require('../package.json');
+
+const GenericRouter = require('wapi-core').GenericRouter;
+const WildcardRouter = require('wapi-core').WildcardRouter;
+
+const AuthMiddleware = require('wapi-core').AccountAPIMiddleware;
 
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, {
@@ -16,7 +20,7 @@ winston.add(winston.transports.Console, {
     colorize: true,
 });
 
-let init = async () => {
+let init = async() => {
     let config;
     try {
         config = require('../config/main.json');
@@ -50,12 +54,12 @@ let init = async () => {
     app.use(cors());
 
     // Auth middleware
-    //TODO add working auth client
+    app.use(new AuthMiddleware({ urlBase: 'http://localhost:9010', uagent: 'My awesome API V1' }).middleware());
 
     // Routers
-    app.use(new GenericRouter().router());
+    app.use(new GenericRouter(packageJson.version, `Welcome to the ${packageJson.name}`).router());
 
-    //add custom routers here:
+    // add custom routers here:
 
     // Always use this last
     app.use(new WildcardRouter().router());
