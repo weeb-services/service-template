@@ -1,0 +1,9 @@
+[
+  {
+    "name": "name of permission",
+    "description": "description of permission",
+    "routes": [
+      "affected routes"
+    ]
+  }
+]

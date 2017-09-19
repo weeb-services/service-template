@@ -7,7 +7,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-const packageJson = require('../package.json');
+const pkg = require('../package.json');
+const permNodes = require('./permNodes.json');
 
 const GenericRouter = require('wapi-core').GenericRouter;
 const WildcardRouter = require('wapi-core').WildcardRouter;
@@ -57,7 +58,7 @@ let init = async() => {
     app.use(new AuthMiddleware({ urlBase: 'http://localhost:9010', uagent: 'My awesome API V1' }).middleware());
 
     // Routers
-    app.use(new GenericRouter(packageJson.version, `Welcome to the ${packageJson.name}`).router());
+    app.use(new GenericRouter(pkg.version, `Welcome to the ${pkg.name}`, `${pkg.name}-${config.env}`, permNodes).router());
 
     // add custom routers here:
 
