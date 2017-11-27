@@ -55,7 +55,7 @@ let init = async() => {
     app.use(cors());
 
     // Auth middleware
-    app.use(new AuthMiddleware({ urlBase: 'http://localhost:9010', uagent: 'My awesome API V1' }).middleware());
+    app.use(new AuthMiddleware('http://localhost:9010', 'My awesome API V1').middleware());
 
     // Routers
     app.use(new GenericRouter(pkg.version, `Welcome to the ${pkg.name}`, `${pkg.name}-${config.env}`, permNodes).router());
