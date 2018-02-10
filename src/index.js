@@ -54,8 +54,8 @@ const init = async () => {
   app.use(bodyParser.urlencoded({extended: true}))
   app.use(cors())
 
-  // Auth middleware
-  app.use(new AuthMiddleware({urlBase: 'http://localhost:9010', uagent: `${pkg.name}/${pkg.version}`}).middleware())
+    // Auth middleware
+    app.use(new AuthMiddleware('http://localhost:9010', `${pkg.name}/${pkg.version}`).middleware());
 
   // Routers
   app.use(new GenericRouter(pkg.version, `Welcome to the ${pkg.name}`, `${pkg.name}-${config.env}`, permNodes).router())
