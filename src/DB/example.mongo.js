@@ -1,7 +1,7 @@
-let mongoose = require('mongoose');
-let exampleSchema = mongoose.Schema({
-    name: String,
-    id: String,
-});
-let exampleModel = mongoose.model('examples', exampleSchema);
-module.exports = exampleModel;
+const mongoose = require('mongoose')
+const exampleSchema = mongoose.Schema({
+  name: String,
+  id: String
+})
+const exampleModel = mongoose.model('examples', exampleSchema)
+module.exports = exampleModel

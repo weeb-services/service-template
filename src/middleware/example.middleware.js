@@ -1,12 +1,12 @@
-'use strict';
-const BaseMiddleware = require('wapi-core').BaseMiddleware;
-const HTTPCodes = require('wapi-core').Constants.HTTPCodes;
+'use strict'
+const BaseMiddleware = require('@weeb_services/wapi-core').BaseMiddleware
+const HTTPCodes = require('@weeb_services/wapi-core').Constants.HTTPCodes
 
 class ExampleMiddleware extends BaseMiddleware {
-    async exec(req, res) {
-        // do stuff here
-        return HTTPCodes.OK;
-    }
+  async exec (req, res) {
+    // do stuff here
+    return HTTPCodes.OK
+  }
 }
 
-module.exports = ExampleMiddleware;
+module.exports = ExampleMiddleware
