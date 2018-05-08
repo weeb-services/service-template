@@ -1,4 +1,9 @@
 ![awoo](https://i.imgur.com/dTuYvKG.jpg)
+
+#DEPRECATED
+
+This repo is officially deprecated and should **not** be used anymore.
+
 # weeb-service-base
 A cute and awesome foundation for your next api
 
